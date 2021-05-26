@@ -14,7 +14,27 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    color: #f1f1f1;
+    color: $offwhite;
     background: $background-color;
     height: 100vh;
 }
+
+.container{
+    width: 800px;
+    height: 600px;
+    background: linear-gradient(45deg, #1068B6, #ec60a6);
+    display: grid;
+    grid-template-rows: 100px 300px 100px 100px;
+    grid-template-columns: repeat(8, 1fr);
+    margin: 100px auto 0;
+    position: relative;
+    border: 1px solid $offwhite;
+}
+
+h1{
+    /* rowstart / colstart / rowend / colend */
+    grid-area: 1 / 1 / 2 / -1; /* -1 = until the end */
+    @extend %center-flex-column;
+    border-bottom: 1px solid $offwhite;
+}
+
