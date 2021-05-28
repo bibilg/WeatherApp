@@ -3,6 +3,11 @@ const temps = document.querySelector('.temps');
 const temperature = document.querySelector('.temperature');
 const localisation = document.querySelector('.localisation');
 const logo = document.querySelector('.logo-meteo');
+const heure = document.querySelectorAll('.h-nom-prevision');
+const heurePrevision = document.querySelectorAll('.h-prevision-valeur');
+const jours = document.querySelectorAll('.j-nom-prevision');
+const joursPrevision = document.querySelectorAll('.j-prevision-valeur');
+const days = [ 'Dim' , 'Lun' , 'Mar' , 'Mer' , 'Jeu' , 'Ven' , 'Sam'];
 
 navigator.geolocation.getCurrentPosition( position => {
     
@@ -27,6 +32,8 @@ function apiCall(latitude, longitude){
     .then((value) => {
 
         editBlockInfo(value);
+        editPrevisionHeure(value);
+        editPrevisionJour(value);
         
     })
     .catch(function(err){
@@ -45,4 +52,36 @@ function editBlockInfo(value){
     temps.innerText = value.current.weather[0].description;
     temperature.innerText = Math.round(value.current.temp) + '°';
     localisation.innerText = value.timezone;
+}
+
+function editPrevisionHeure(value){
+
+    let date = new Date();
+    let hours = date.getHours();
+
+    for( let i = 0, j=0 ; i < heure.length ; i++ , j+=3, hours+=3 ){
+
+        if(hours >= 24){
+            hours -=24;
+        }
+
+        heure[i].innerText = hours + 'h';
+        heurePrevision[i].innerText = Math.round(value.hourly[j].temp) + '°';
+    }
+}
+
+function editPrevisionJour(value){
+
+    let date = new Date();
+    let jour = date.getDay();
+
+    for( let i = 0 ; i < jours.length ; i++, jour++ ){
+
+        if(jour === 7){
+            jour = 0;
+        }
+
+        jours[i].innerText = days[jour];
+        joursPrevision[i].innerText = Math.round(value.daily[i].temp.day) + '°';
+    }
 }
