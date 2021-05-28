@@ -10,6 +10,7 @@ const heurePrevision = document.querySelectorAll('.h-prevision-valeur');
 const jours = document.querySelectorAll('.j-nom-prevision');
 const joursPrevision = document.querySelectorAll('.j-prevision-valeur');
 const days = [ 'Dim' , 'Lun' , 'Mar' , 'Mer' , 'Jeu' , 'Ven' , 'Sam'];
+const loadingContainer = document.querySelector('.overlay-icone-chargement');
 
 navigator.geolocation.getCurrentPosition( position => {
     
@@ -37,6 +38,8 @@ function apiCall(latitude, longitude){
         editPrevisionHeure(value);
         editPrevisionJour(value);
         console.log(bonjour);
+        loadingContainer.classList.add("disparition");
+
         
     })
     .catch(function(err){
