@@ -1,3 +1,5 @@
+import bonjour from './Utilitaire/gestionTemps.js';
+
 const apiKey = '3e6a22803933489364840e4fc5bb1ef8';
 const temps = document.querySelector('.temps');
 const temperature = document.querySelector('.temperature');
@@ -34,6 +36,7 @@ function apiCall(latitude, longitude){
         editBlockInfo(value);
         editPrevisionHeure(value);
         editPrevisionJour(value);
+        console.log(bonjour);
         
     })
     .catch(function(err){
